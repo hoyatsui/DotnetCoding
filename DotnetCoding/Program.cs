@@ -1,8 +1,17 @@
+using DotnetCoding.Infrastructure;
 using DotnetCoding.Infrastructure.ServiceExtension;
 using DotnetCoding.Services;
 using DotnetCoding.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Register DbContext
+builder.Services.AddDbContext<DbContextClass>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
 
 // Add services to the container.
 builder.Services.AddDIServices(builder.Configuration);
