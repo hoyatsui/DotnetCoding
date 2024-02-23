@@ -9,5 +9,6 @@ namespace DotnetCoding.Core.Models
         public string ProductDescription { get; set; }
         public int ProductPrice { get; set; }
         public string ProductStatus { get; set; }
+        public DateTime PostDate { get; set; }
     }
 }
