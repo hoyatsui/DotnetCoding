@@ -8,7 +8,7 @@ namespace DotnetCoding.Core.Models
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public int ProductPrice { get; set; }
-        public string ProductStatus { get; set; }
+        public bool IsActive { get; set; } 
         public DateTime PostDate { get; set; }
     }
 }
