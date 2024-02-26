@@ -11,17 +11,20 @@ namespace DotnetCoding.Infrastructure.Repositories
     {
         private readonly DbContextClass _dbContext;
         public IProductRepository Products { get; }
+        public IRequestRepository Requests { get; }
 
         public UnitOfWork(DbContextClass dbContext,
-                            IProductRepository productRepository)
+                            IProductRepository productRepository, 
+                            IRequestRepository requestRepository)
         {
             _dbContext = dbContext;
             Products = productRepository;
+            Requests = requestRepository;
         }
 
-        public int Save()
+        public async Task SaveAsync()
         {
-            return _dbContext.SaveChanges();
+            await  _dbContext.SaveChangesAsync();
         }
 
         public void Dispose()

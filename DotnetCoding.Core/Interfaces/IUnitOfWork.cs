@@ -5,7 +5,7 @@ namespace DotnetCoding.Core.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IProductRepository Products { get; }
-
-        int Save();
+        IRequestRepository Requests { get; }
+        Task SaveAsync();
     }
 }

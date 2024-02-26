@@ -1,4 +1,6 @@
+using DotnetCoding.Core.Interfaces;
 using DotnetCoding.Infrastructure;
+using DotnetCoding.Infrastructure.Repositories;
 using DotnetCoding.Infrastructure.ServiceExtension;
 using DotnetCoding.Services;
 using DotnetCoding.Services.Interfaces;
@@ -15,8 +17,10 @@ builder.Services.AddDbContext<DbContextClass>(options =>
 
 // Add services to the container.
 builder.Services.AddDIServices(builder.Configuration);
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
-
+builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
