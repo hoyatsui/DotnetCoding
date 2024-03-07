@@ -6,15 +6,15 @@ namespace DotnetCoding.Infrastructure.Repositories
 {
     public class ProductRepository : GenericRepository<ProductDetails>, IProductRepository
     {
-        public ProductRepository(DbContextClass dbContext) : base(dbContext)
+        public ProductRepository(DbContextClass _dbContext) : base(_dbContext)
         {
 
         }
         public async Task<IEnumerable<ProductDetails>> GetActiveProducts()
         {
-            return await _dbContext.Products.Where(p => p.IsActive).ToListAsync();
+            return await _dbContext.Products.Where(p => p.IsActive).OrderByDescending(p => p.PostDate).ToListAsync();
         }
-        public async Task<IEnumerable<ProductDetails>> GetActiveProducts(string productName, int? minPrice, int? maxPrice, DateTime? startDate, DateTime? endDate)
+        public async Task<IEnumerable<ProductDetails>> GetActiveProducts(string? productName, int? minPrice, int? maxPrice, DateTime? startDate, DateTime? endDate)
         {
             var query = _dbContext.Products.Where(p => p.IsActive);
             if(!string.IsNullOrEmpty(productName))
@@ -48,7 +48,8 @@ namespace DotnetCoding.Infrastructure.Repositories
                 throw new ArgumentException("ProductDetails cannot be null.");
             }
             await _dbContext.Products.AddAsync(producDetails);
+            await _dbContext.SaveChangesAsync();
         }
-        
+               
     }
 }

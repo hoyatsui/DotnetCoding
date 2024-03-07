@@ -10,5 +10,6 @@ namespace DotnetCoding.Core.Models
         public int ProductPrice { get; set; }
         public bool IsActive { get; set; } 
         public DateTime PostDate { get; set; }
+
     }
 }

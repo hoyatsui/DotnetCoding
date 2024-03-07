@@ -18,5 +18,7 @@ namespace DotnetCoding.Infrastructure
 
         public DbSet<ProductDetails> Products { get; set; }
         public DbSet<Request> Requests { get; set; }
+
+     
     }
 }

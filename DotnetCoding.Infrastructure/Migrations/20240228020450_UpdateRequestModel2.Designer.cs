@@ -4,6 +4,7 @@ using DotnetCoding.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DotnetCoding.Infrastructure.Migrations
 {
     [DbContext(typeof(DbContextClass))]
-    partial class DbContextClassModelSnapshot : ModelSnapshot
+    [Migration("20240228020450_UpdateRequestModel2")]
+    partial class UpdateRequestModel2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,16 +62,7 @@ namespace DotnetCoding.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("NewProductDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("NewProductPrice")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("DetailsId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("RequestDate")
@@ -85,7 +78,20 @@ namespace DotnetCoding.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DetailsId");
+
                     b.ToTable("Requests");
+                });
+
+            modelBuilder.Entity("DotnetCoding.Core.Models.Request", b =>
+                {
+                    b.HasOne("DotnetCoding.Core.Models.ProductDetails", "Details")
+                        .WithMany()
+                        .HasForeignKey("DetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Details");
                 });
 #pragma warning restore 612, 618
         }
